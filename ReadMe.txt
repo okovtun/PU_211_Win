@@ -2,6 +2,9 @@ https://github.com/okovtun/PU_211_Win.git
 https://www.youtube.com/watch?v=yJM6d4SDVyI&list=PLeqyOOqxeiIN-lZiZy9zFTwJcC2xuMA1O
 
 TODO:
+ќбеспечить добавление элементов в ListBox;
+
+DONE:
 ¬ Solution 'WinAPI' добавить проект 'ListBox', и в этом проекте выполнить все те же действи€, которые были выполнены в 'ComboBox';
 
 DONE:
