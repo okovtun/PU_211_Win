@@ -110,8 +110,55 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	switch (uMsg)
 	{
 	case WM_CREATE:
-		break;
+	{
+		CHAR sz_static_text[] = "Этот Static control создан при помощи функции CreateWindowEx()";
+		CreateWindowEx
+		(
+			0, "Static", sz_static_text,
+			WS_CHILD | WS_VISIBLE,
+			100, 100,
+			strlen(sz_static_text)*7.2, 20,
+			hwnd,
+			(HMENU)IDC_STATIC,
+			GetModuleHandle(NULL),
+			NULL
+		);
+		CreateWindowEx
+		(
+			0, "Edit", "",
+			WS_CHILD | WS_VISIBLE | WS_BORDER,
+			100, 120,
+			300, 20,
+			hwnd,
+			(HMENU)IDC_EDIT,
+			GetModuleHandle(NULL),
+			NULL
+		);
+		CreateWindowEx
+		(
+			0, "Button", "OK",
+			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+			300, 150,
+			100, 25,
+			hwnd,
+			(HMENU)IDC_BUTTON,
+			GetModuleHandle(NULL),
+			NULL
+		);
+	}
+	break;
 	case WM_COMMAND:
+		switch (LOWORD(wParam))
+		{
+		case IDC_BUTTON:
+		{
+			CONST INT SIZE = 256;
+			CHAR sz_buffer[SIZE]{};
+			SendMessage(GetDlgItem(hwnd, IDC_EDIT), WM_GETTEXT, SIZE, (LPARAM)sz_buffer);
+			SendMessage(GetDlgItem(hwnd, IDC_STATIC), WM_SETTEXT, 0, (LPARAM)sz_buffer);
+		}
+		break;
+		}
 		break;
 	case WM_DESTROY: PostQuitMessage(0); break;
 	case WM_CLOSE:	 DestroyWindow(hwnd); break;

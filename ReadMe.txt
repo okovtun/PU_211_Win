@@ -2,6 +2,11 @@ https://github.com/okovtun/PU_211_Win.git
 https://www.youtube.com/watch?v=yJM6d4SDVyI&list=PLeqyOOqxeiIN-lZiZy9zFTwJcC2xuMA1O
 
 TODO:
+1. Главное окно должно загружаться ровно по центру экрана, и занимать ровно 75% экрана, независимо от его размера;
+2. При перемещении окна по экрану, и при изменении его размера, размер и положение на экране должны отображаться в строке заголовка;
+	WM_MOVE, WM_SIZE
+
+DONE:
 Обеспечить добавление элементов в ListBox;
 
 DONE:

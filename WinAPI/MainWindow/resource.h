@@ -6,6 +6,11 @@
 #define IDI_ICON_STAR                   102
 #define IDC_CURSOR1                     103
 
+#define IDC_STATIC						1001
+#define IDC_EDIT						1002
+#define IDC_BUTTON						1003
+
+
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
