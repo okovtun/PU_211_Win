@@ -1,4 +1,5 @@
 ﻿#include<Windows.h>
+#include"resource.h"
 
 CONST CHAR g_sz_WINDOW_CLASS[] = "My Window Class";
 
@@ -15,14 +16,17 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 	wc.cbWndExtra = 0;
 	wc.style = 0;
 
-	wc.hIcon = LoadIcon(hInstance, IDI_APPLICATION);	//Иконка, отображаемая в панели задач
-	wc.hIconSm = LoadIcon(hInstance, IDI_APPLICATION);	//Иконка, отображаемая в строке заголовка
-	wc.hCursor = LoadCursor(hInstance, IDC_ARROW);		//Указатель мыши при наведении на окно
+	//wc.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON_PALM));	//Иконка, отображаемая в панели задач
+	//wc.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON_STAR));	//Иконка, отображаемая в строке заголовка
+	wc.hIcon = (HICON)LoadImage(hInstance, "palm.ico", IMAGE_ICON, LR_DEFAULTSIZE, LR_DEFAULTSIZE, LR_LOADFROMFILE);
+	wc.hIconSm = (HICON)LoadImage(hInstance, "star.ico", IMAGE_ICON, LR_DEFAULTSIZE, LR_DEFAULTSIZE, LR_LOADFROMFILE);
+	//wc.hCursor = LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR1));		//Указатель мыши при наведении на окно
+	wc.hCursor = (HCURSOR)LoadImage(hInstance, "Background.ani", IMAGE_CURSOR, LR_DEFAULTSIZE, LR_DEFAULTSIZE, LR_LOADFROMFILE);
 	wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);		//Цвет фона окна
 
 	wc.hInstance = hInstance;		//Экземпляр запущенной программы
 	wc.lpfnWndProc = WndProc;		//Указатель на процедуру окна
-	wc.lpszMenuName = NULL;			
+	wc.lpszMenuName = NULL;
 	wc.lpszClassName = g_sz_WINDOW_CLASS;	//Имя класса окна. Абсолютно любое окно пренадлежит какому-то классу,
 											//т.е., абсолютно любое окно какого-то типа (Кнопка, Текстовое поле....)
 
@@ -58,7 +62,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 
 		CW_USEDEFAULT, CW_USEDEFAULT,
 		CW_USEDEFAULT, CW_USEDEFAULT,
-		
+
 		NULL,	//Parent
 		NULL,	//Для главного окна - это ID_ меню.
 				//Для элемента окна - это ID_ ресурса этого элемента (IDC_EDIT, IDC_BUTTON...)
@@ -78,7 +82,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 				FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 				NULL,
 				dwErrorMessageID,
-				MAKELANGID(LANG_NEUTRAL , SUBLANG_RUSSIAN_RUSSIA),
+				MAKELANGID(LANG_NEUTRAL, SUBLANG_RUSSIAN_RUSSIA),
 				(LPSTR)&lpszMessageBuffer,
 				0,
 				NULL
@@ -91,6 +95,12 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 	UpdateWindow(hwnd);			//Выполняет прорисовку окна
 
 	//3) Запуск цикла сообщений:
+	MSG msg;
+	while (GetMessage(&msg, 0, 0, 0) > 0)
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
 
 	return 0;
 }
@@ -105,7 +115,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_DESTROY: PostQuitMessage(0); break;
 	case WM_CLOSE:	 DestroyWindow(hwnd); break;
-	default:		 DefWindowProc(hwnd, uMsg, wParam, lParam);
+	default:		 return DefWindowProc(hwnd, uMsg, wParam, lParam);
 	}
 	return NULL;
 }
