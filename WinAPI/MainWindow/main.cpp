@@ -1,4 +1,6 @@
-﻿#include<Windows.h>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include<Windows.h>
+#include<stdio.h>
 #include"resource.h"
 
 CONST CHAR g_sz_WINDOW_CLASS[] = "My Window Class";
@@ -53,6 +55,13 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 
 	//2) Создание окна:
 
+	int screen_width = GetSystemMetrics(SM_CXSCREEN);
+	int screen_height = GetSystemMetrics(SM_CYSCREEN);
+	int window_width = screen_width * .75;
+	int window_height = screen_height * .75;
+	int start_x = screen_width * .125;
+	int start_y = screen_height * .125;
+
 	HWND hwnd = CreateWindowEx
 	(
 		0,
@@ -60,8 +69,8 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 		g_sz_WINDOW_CLASS,		//Заголовок окна
 		WS_OVERLAPPEDWINDOW,	//Главное окно программы, еще называется TopLevelWindow
 
-		CW_USEDEFAULT, CW_USEDEFAULT,
-		CW_USEDEFAULT, CW_USEDEFAULT,
+		start_x, start_y,
+		window_width, window_height,
 
 		NULL,	//Parent
 		NULL,	//Для главного окна - это ID_ меню.
@@ -145,6 +154,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			GetModuleHandle(NULL),
 			NULL
 		);
+	}
+	break;
+	case WM_SIZE:
+	case WM_MOVE:
+	{
+		RECT rect;
+		GetWindowRect(hwnd, &rect);
+		int width = rect.right - rect.left;
+		int height = rect.bottom - rect.top;
+		CONST INT SIZE = 256;
+		CHAR sz_buffer[SIZE] = {};
+		sprintf(sz_buffer, "%s, Position: %ix%i Size: %ix%i", g_sz_WINDOW_CLASS, rect.left, rect.top, width, height);
+		SendMessage(hwnd, WM_SETTEXT, 0, (LPARAM)sz_buffer);
 	}
 	break;
 	case WM_COMMAND:
