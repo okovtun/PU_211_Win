@@ -6,9 +6,23 @@ CONST CHAR g_sz_MY_WINDOW_CLASS[] = "My Calculator";
 //sz_ - String Zero
 CONST INT g_i_START_X = 10;
 CONST INT g_i_START_Y = 10;
-CONST INT g_i_INTERVAL = 10;
-CONST INT g_i_BTN_SIZE = 50;
+
+CONST INT g_i_INTERVAL = 5;
+
+CONST INT g_i_BTN_SIZE = 150;
+CONST INT g_i_BTN_SIZE_WITH_INTERVAL = g_i_BTN_SIZE + g_i_INTERVAL;
 CONST INT g_i_BTN_SIZE_DOUBLE = g_i_BTN_SIZE * 2 + g_i_INTERVAL;
+
+CONST INT g_i_DISPLAY_WIDTH = g_i_BTN_SIZE * 5 + g_i_INTERVAL * 4;
+CONST INT g_i_DISPLAY_HEIGHT = 50;
+
+CONST INT g_i_BTN_START_X = g_i_START_X;
+CONST INT g_i_BTN_START_Y = g_i_START_Y + g_i_DISPLAY_HEIGHT + g_i_INTERVAL;
+
+CONST INT g_i_WINDOW_WIDTH = g_i_DISPLAY_WIDTH + g_i_START_X * 2 + 16;
+CONST INT g_i_WINDOW_HEIGHT = g_i_DISPLAY_HEIGHT + g_i_START_Y * 3 + g_i_BTN_SIZE_WITH_INTERVAL * 4 + 30;
+
+CONST CHAR g_OPERATIONS[] = "+-*/";
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
@@ -45,9 +59,9 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 		NULL,
 		g_sz_MY_WINDOW_CLASS,
 		g_sz_MY_WINDOW_CLASS,
-		WS_OVERLAPPEDWINDOW,
+		WS_SYSMENU | WS_MINIMIZEBOX,
 		CW_USEDEFAULT, CW_USEDEFAULT,
-		CW_USEDEFAULT, CW_USEDEFAULT,
+		g_i_WINDOW_WIDTH, g_i_WINDOW_HEIGHT,
 		NULL,
 		NULL,
 		hInstance,
@@ -83,13 +97,132 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			NULL, "Static", "0",
 			WS_CHILD | WS_VISIBLE | SS_RIGHT | SS_SUNKEN | SS_CENTERIMAGE,
 			g_i_START_X, g_i_START_Y,
-			(g_i_BTN_SIZE + g_i_INTERVAL) * 5, g_i_BTN_SIZE,
+			g_i_DISPLAY_WIDTH, g_i_DISPLAY_HEIGHT,
 			hwnd,
 			(HMENU)IDC_STATIC,
 			GetModuleHandle(NULL),
 			NULL
 		);
 		SendMessage(hDisplay, WM_SETTEXT, 0, (LPARAM)"Display");
+
+		INT i_digit = 1;
+		CHAR sz_digit[2] = {};
+		/*for (int i = 3; i > 0; i--)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				sz_digit[0] = i_digit + (char)48;
+				CreateWindowEx
+				(
+					NULL, "Button", sz_digit,
+					WS_CHILDWINDOW | WS_VISIBLE | BS_PUSHBUTTON,
+					g_i_START_X + g_i_BTN_SIZE_WITH_INTERVAL * j,
+					g_i_START_Y + g_i_BTN_SIZE_WITH_INTERVAL * i,
+					g_i_BTN_SIZE, g_i_BTN_SIZE,
+					hwnd,
+					(HMENU)(IDC_BUTTON_0 + i_digit),
+					GetModuleHandle(NULL),
+					NULL
+				);
+				i_digit++;
+			}
+		}*/
+		for (int i = 2; i >= 0; i--)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				sz_digit[0] = i_digit + (char)48;
+				CreateWindowEx
+				(
+					NULL, "Button", sz_digit,
+					WS_CHILDWINDOW | WS_VISIBLE | BS_PUSHBUTTON,
+					g_i_BTN_START_X + g_i_BTN_SIZE_WITH_INTERVAL * j,
+					g_i_BTN_START_Y + g_i_BTN_SIZE_WITH_INTERVAL * i,
+					g_i_BTN_SIZE, g_i_BTN_SIZE,
+					hwnd,
+					(HMENU)(IDC_BUTTON_0 + i_digit),
+					GetModuleHandle(NULL),
+					NULL
+				);
+				i_digit++;
+			}
+		}
+		//////////////////////////////////////////////////////////////////////////////////////////////
+		CreateWindowEx
+		(
+			NULL, "Button", "0",
+			WS_CHILDWINDOW | WS_VISIBLE | BS_PUSHBUTTON,
+			g_i_BTN_START_X, g_i_BTN_START_Y + g_i_BTN_SIZE_WITH_INTERVAL * 3,
+			g_i_BTN_SIZE_DOUBLE, g_i_BTN_SIZE,
+			hwnd,
+			(HMENU)IDC_BUTTON_0,
+			GetModuleHandle(NULL),
+			NULL
+		);
+		CreateWindowEx
+		(
+			NULL, "Button", ".",
+			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+			g_i_BTN_START_X + g_i_BTN_SIZE_WITH_INTERVAL * 2, g_i_BTN_START_Y + g_i_BTN_SIZE_WITH_INTERVAL * 3,
+			g_i_BTN_SIZE, g_i_BTN_SIZE,
+			hwnd,
+			(HMENU)IDC_BUTTON_POINT,
+			GetModuleHandle(NULL),
+			NULL
+		);
+		//////////////////////////////////////////////////////////////////////////////////////////////
+		INT i_operation = 0;
+		CHAR sz_operation[2] = {};
+		for (int i = 3; i >= 0; i--)
+		{
+			sz_operation[0] = g_OPERATIONS[i];
+			CreateWindowEx
+			(
+				NULL, "Button", sz_operation,
+				WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+				g_i_BTN_START_X + g_i_BTN_SIZE_WITH_INTERVAL * 3, g_i_BTN_START_Y + g_i_BTN_SIZE_WITH_INTERVAL * (3 - i),
+				g_i_BTN_SIZE, g_i_BTN_SIZE,
+				hwnd,
+				(HMENU)(IDC_BUTTON_PLUS + i),
+				GetModuleHandle(NULL),
+				NULL
+			);
+		}
+		CreateWindowEx
+		(
+			NULL, "Button", "<-",
+			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+			g_i_BTN_START_X + g_i_BTN_SIZE_WITH_INTERVAL * 4, g_i_BTN_START_Y,
+			g_i_BTN_SIZE, g_i_BTN_SIZE,
+			hwnd,
+			(HMENU)IDC_BUTTON_BSP,
+			GetModuleHandle(NULL),
+			NULL
+		);
+		CreateWindowEx
+		(
+			NULL, "Button", "C",
+			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+			g_i_BTN_START_X + g_i_BTN_SIZE_WITH_INTERVAL * 4, g_i_BTN_START_Y + g_i_BTN_SIZE_WITH_INTERVAL,
+			g_i_BTN_SIZE, g_i_BTN_SIZE,
+			hwnd,
+			(HMENU)IDC_BUTTON_CLEAR,
+			GetModuleHandle(NULL),
+			NULL
+		);
+		CreateWindowEx
+		(
+			NULL, "Button", "=",
+			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+			g_i_BTN_START_X + g_i_BTN_SIZE_WITH_INTERVAL * 4, g_i_BTN_START_Y + g_i_BTN_SIZE_WITH_INTERVAL * 2,
+			g_i_BTN_SIZE, g_i_BTN_SIZE_DOUBLE,
+			hwnd,
+			(HMENU)IDC_BUTTON_EQUAL,
+			GetModuleHandle(NULL),
+			NULL
+		);
+
+
 	}
 	break;
 	case WM_COMMAND:

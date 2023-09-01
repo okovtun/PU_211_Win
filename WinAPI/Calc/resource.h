@@ -22,6 +22,7 @@
 #define IDC_BUTTON_POINT	1014
 #define IDC_BUTTON_EQUAL	1015
 #define IDC_BUTTON_CLEAR	1016
+#define IDC_BUTTON_BSP		1017
 
 // Next default values for new objects
 // 

@@ -2,6 +2,9 @@ https://github.com/okovtun/PU_211_Win.git
 https://www.youtube.com/watch?v=yJM6d4SDVyI&list=PLeqyOOqxeiIN-lZiZy9zFTwJcC2xuMA1O
 
 TODO:
+«аставить калькул€тор работать;
+
+DONE:
 1. —оздать кнопки в окне калькул€тора;
 2. ќкно калькул€тора не должно измен€тьс€ по размеру, и разворачиватьс€ на весь экран,
    дл€ этого нужно изменить стиль главного окна при его создании;
