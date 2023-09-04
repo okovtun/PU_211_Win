@@ -2,7 +2,8 @@ https://github.com/okovtun/PU_211_Win.git
 https://www.youtube.com/watch?v=yJM6d4SDVyI&list=PLeqyOOqxeiIN-lZiZy9zFTwJcC2xuMA1O
 
 TODO:
-Заставить калькулятор работать;
+1. Обеспечить ввод с клавиатуры;
+2. Изменить внешний вид калькулятора используя иконки для кнопок;
 
 DONE:
 1. Создать кнопки в окне калькулятора;
