@@ -13,6 +13,11 @@
 #define IDB_BITMAP_8		 108
 #define IDB_BITMAP_9		 109
 
+#define IDC_SQUARE			 200
+#define IDC_ROUND			 201
+
+#define IDC_EXIT			 300
+
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED

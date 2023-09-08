@@ -28,7 +28,7 @@ CONST INT g_i_WINDOW_HEIGHT = g_i_DISPLAY_HEIGHT + g_i_START_Y * 3 + g_i_BTN_SIZ
 CONST CHAR g_OPERATIONS[] = "+-*/";
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-VOID SetSkin(HWND hwnd);
+VOID SetSkin(HWND hwnd, CONST CHAR sz_skin[]);
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, INT nCmdShow)
 {
@@ -156,7 +156,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				i_digit++;
 			}
 		}
-		
+
 		//////////////////////////////////////////////////////////////////////////////////////////////
 		CreateWindowEx
 		(
@@ -169,7 +169,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			GetModuleHandle(NULL),
 			NULL
 		);
-		SetSkin(hwnd);
+		SetSkin(hwnd, "square_blue");
 		CreateWindowEx
 		(
 			NULL, "Button", ".",
@@ -356,16 +356,31 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		}
 	}
 	break;
-	
+	case WM_CONTEXTMENU:
+	{
+		HMENU hMenu = CreatePopupMenu();
+		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_STRING, IDC_EXIT, "Exit");
+		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_SEPARATOR, 0, NULL);
+		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_STRING, IDC_SQUARE, "Square buttons");
+		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_STRING, IDC_ROUND, "Round buttons");
+		SetForegroundWindow(hwnd);
+		switch (TrackPopupMenuEx(hMenu, TPM_BOTTOMALIGN | TPM_LEFTALIGN | TPM_RETURNCMD, LOWORD(lParam), HIWORD(lParam), hwnd, NULL))
+		{
+		case IDC_SQUARE:	SetSkin(hwnd, "square_blue");	break;
+		case IDC_ROUND:		SetSkin(hwnd, "round_blue");	break;
+		case IDC_EXIT:		SendMessage(hwnd, WM_CLOSE, 0, 0); 
+		}
+	}
+	break;
 	case WM_DESTROY:PostQuitMessage(0);		break;
 	case WM_CLOSE:	DestroyWindow(hwnd);	break;
 	default:		return DefWindowProc(hwnd, uMsg, wParam, lParam);
 	}
 	return NULL;
 }
-VOID SetSkin(HWND hwnd)
+VOID SetSkin(HWND hwnd, CONST CHAR sz_skin[])
 {
-//	IDB_BUTTON_0	BITMAP			"ButtonsBPM\\square_blue\\button_0.bmp"
+	//	IDB_BUTTON_0	BITMAP			"ButtonsBPM\\square_blue\\button_0.bmp"
 	CONST INT SIZE = 10;
 	HWND hButton[SIZE] = {};
 	//HBITMAP hBitmap[SIZE] = {};
@@ -375,7 +390,7 @@ VOID SetSkin(HWND hwnd)
 		//hBitmap[i] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(i + IDB_BITMAP_0));
 		//HBITMAP hBitmap = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(i + IDB_BITMAP_0));
 		CHAR sz_filename[FILENAME_MAX] = {};
-		sprintf(sz_filename, "ButtonsBPM\\square_blue\\button_%i.bmp", i);
+		sprintf(sz_filename, "ButtonsBPM\\%s\\button_%i.bmp", sz_skin, i);
 		HBITMAP hBitmap = (HBITMAP)LoadImage(GetModuleHandle(NULL), sz_filename, IMAGE_BITMAP, g_i_BTN_SIZE, g_i_BTN_SIZE, LR_LOADFROMFILE);
 		/*DWORD dwErrorMessageID = GetLastError();
 		LPSTR lpMessageBuffer = NULL;
