@@ -2,6 +2,11 @@
 // Microsoft Visual C++ generated include file.
 // Used by Resource.rc
 
+//IDB_BUTTON_0	BITMAP			"ButtonsBPM\\square_blue\\button_0.bmp"
+
+//#define IDB_BITMAP_0		 100
+//#define IDB_BITMAP_1		 101
+
 #define IDC_STATIC			 999
 
 #define IDC_BUTTON_0		1000

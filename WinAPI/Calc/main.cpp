@@ -2,6 +2,7 @@
 #include<Windows.h>
 #include<cstdio>
 #include"resource.h"
+#include"resource1.h"
 
 CONST CHAR g_sz_MY_WINDOW_CLASS[] = "My Calculator";
 //g_  - Global
@@ -27,6 +28,7 @@ CONST INT g_i_WINDOW_HEIGHT = g_i_DISPLAY_HEIGHT + g_i_START_Y * 3 + g_i_BTN_SIZ
 CONST CHAR g_OPERATIONS[] = "+-*/";
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+VOID SetSkin(HWND hwnd);
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, INT nCmdShow)
 {
@@ -142,7 +144,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				CreateWindowEx
 				(
 					NULL, "Button", sz_digit,
-					WS_CHILDWINDOW | WS_VISIBLE | BS_PUSHBUTTON,
+					WS_CHILDWINDOW | WS_VISIBLE | BS_PUSHBUTTON | BS_BITMAP,
 					g_i_BTN_START_X + g_i_BTN_SIZE_WITH_INTERVAL * j,
 					g_i_BTN_START_Y + g_i_BTN_SIZE_WITH_INTERVAL * i,
 					g_i_BTN_SIZE, g_i_BTN_SIZE,
@@ -154,6 +156,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				i_digit++;
 			}
 		}
+		
 		//////////////////////////////////////////////////////////////////////////////////////////////
 		CreateWindowEx
 		(
@@ -166,6 +169,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			GetModuleHandle(NULL),
 			NULL
 		);
+		SetSkin(hwnd);
 		CreateWindowEx
 		(
 			NULL, "Button", ".",
@@ -195,6 +199,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				NULL
 			);
 		}
+		//HWND hBtnPlus = GetDlgItem(hwnd, IDC_BUTTON_PLUS);
+		//HBITMAP hBitMap = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP_PLUS));
+		//SendMessage(hBtnPlus, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitMap);
 		CreateWindowEx
 		(
 			NULL, "Button", "<-",
@@ -270,7 +277,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		}
 		if (LOWORD(wParam) == IDC_BUTTON_BSP)
 		{
-			if (strcmp(sz_buffer, "0") == 0)break;
+			if (strcmp(sz_buffer, "0") == 0 || strlen(sz_buffer) == 0)break;
 			sz_buffer[strlen(sz_buffer) - 1] = 0;
 			SendMessage(hStatic, WM_SETTEXT, 0, (LPARAM)sz_buffer);
 		}
@@ -322,9 +329,68 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		}
 	}
 	break;
+	case WM_KEYDOWN:
+	{
+		if (GetKeyState(VK_SHIFT) < 0)
+		{
+			if (wParam == 0x38)SendMessage(hwnd, WM_COMMAND, IDC_BUTTON_ASTER, 0);
+		}
+		else if (LOWORD(wParam) >= 0x30 && LOWORD(wParam) <= 0x39)	//Digits:0123....9
+		{
+			SendMessage(hwnd, WM_COMMAND, wParam - 0x30 + 1000, 0);
+		}
+		if (LOWORD(wParam) >= 0x60 && LOWORD(wParam) <= 69)
+			SendMessage(hwnd, WM_COMMAND, wParam - 0x60 + 1000, 0);
+
+		switch (LOWORD(wParam))
+		{
+		case VK_OEM_PERIOD:	SendMessage(hwnd, WM_COMMAND, IDC_BUTTON_POINT, 0);	break;
+		case VK_OEM_PLUS:	SendMessage(hwnd, WM_COMMAND, IDC_BUTTON_PLUS, 0);	break;
+		case VK_OEM_MINUS:	SendMessage(hwnd, WM_COMMAND, IDC_BUTTON_MINUS, 0);	break;
+		case VK_MULTIPLY:	SendMessage(hwnd, WM_COMMAND, IDC_BUTTON_ASTER, 0);	break;
+		case VK_OEM_2:
+		case VK_DIVIDE:		SendMessage(hwnd, WM_COMMAND, IDC_BUTTON_SLASH, 0);	break;
+		case VK_BACK:		SendMessage(hwnd, WM_COMMAND, IDC_BUTTON_BSP, 0); break;
+		case VK_RETURN:		SendMessage(hwnd, WM_COMMAND, IDC_BUTTON_EQUAL, 0); break;
+		case VK_ESCAPE:		SendMessage(hwnd, WM_COMMAND, IDC_BUTTON_CLEAR, 0); break;
+		}
+	}
+	break;
+	
 	case WM_DESTROY:PostQuitMessage(0);		break;
 	case WM_CLOSE:	DestroyWindow(hwnd);	break;
 	default:		return DefWindowProc(hwnd, uMsg, wParam, lParam);
 	}
 	return NULL;
+}
+VOID SetSkin(HWND hwnd)
+{
+//	IDB_BUTTON_0	BITMAP			"ButtonsBPM\\square_blue\\button_0.bmp"
+	CONST INT SIZE = 10;
+	HWND hButton[SIZE] = {};
+	//HBITMAP hBitmap[SIZE] = {};
+	for (int i = 0; i < SIZE; i++)
+	{
+		hButton[i] = GetDlgItem(hwnd, i + IDC_BUTTON_0);
+		//hBitmap[i] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(i + IDB_BITMAP_0));
+		//HBITMAP hBitmap = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(i + IDB_BITMAP_0));
+		CHAR sz_filename[FILENAME_MAX] = {};
+		sprintf(sz_filename, "ButtonsBPM\\square_blue\\button_%i.bmp", i);
+		HBITMAP hBitmap = (HBITMAP)LoadImage(GetModuleHandle(NULL), sz_filename, IMAGE_BITMAP, g_i_BTN_SIZE, g_i_BTN_SIZE, LR_LOADFROMFILE);
+		/*DWORD dwErrorMessageID = GetLastError();
+		LPSTR lpMessageBuffer = NULL;
+		DWORD dwSize = FormatMessage
+		(
+			FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+			NULL,
+			dwErrorMessageID,
+			MAKELANGID(LANG_NEUTRAL, SUBLANG_RUSSIAN_RUSSIA),
+			(LPSTR)&lpMessageBuffer,
+			0,
+			NULL
+		);
+		MessageBox(hwnd, lpMessageBuffer, "Error", MB_OK | MB_ICONERROR);*/
+		SendMessage(hButton[i], BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
+	}
+
 }
