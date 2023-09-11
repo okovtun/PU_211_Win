@@ -2,6 +2,10 @@ https://github.com/okovtun/PU_211_Win.git
 https://www.youtube.com/watch?v=yJM6d4SDVyI&list=PLeqyOOqxeiIN-lZiZy9zFTwJcC2xuMA1O
 
 TODO:
+1. В Синей теме окно программы должно быть синего цвета;
+2. Добавить зеленую тему;
+
+DONE:
 1. Обеспечить ввод с клавиатуры;	DONE
 2. Изменить внешний вид калькулятора используя иконки для кнопок;
 3. Увеличить размер шрифта на экране калькулятора;

@@ -5,6 +5,7 @@
 #include"resource1.h"
 
 CONST CHAR g_sz_MY_WINDOW_CLASS[] = "My Calculator";
+CONST CHAR g_sz_DEFAULT_SKIN[] = "square_blue";
 //g_  - Global
 //sz_ - String Zero
 CONST INT g_i_START_X = 10;
@@ -27,8 +28,12 @@ CONST INT g_i_WINDOW_HEIGHT = g_i_DISPLAY_HEIGHT + g_i_START_Y * 3 + g_i_BTN_SIZ
 
 CONST CHAR g_OPERATIONS[] = "+-*/";
 
+CONST CHAR g_sz_DISPLAY_FONT[] = "Tahoma";
+CONST INT g_i_DISPLAY_FONT_HEIGHT = g_i_DISPLAY_HEIGHT - 2;
+CONST INT g_i_DISPLAY_FONT_WIDTH = g_i_DISPLAY_FONT_HEIGHT / 2.5;
+
 LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-VOID SetSkin(HWND hwnd);
+VOID SetSkin(HWND hwnd, CONST CHAR sz_skin[]);
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, INT nCmdShow)
 {
@@ -113,6 +118,37 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			NULL
 		);
 		//SendMessage(hDisplay, WM_SETTEXT, 0, (LPARAM)"Display");
+		/*LOGFONT lFont;
+		ZeroMemory(&lFont, sizeof(lFont));
+		lFont.lfHeight = 32;
+		lFont.lfWidth = 12;
+		lFont.lfEscapement = 0;
+		lFont.lfOrientation = 0;
+		lFont.lfWeight = FW_DEMIBOLD;
+		lFont.lfItalic = FALSE;
+		lFont.lfUnderline = FALSE;
+		lFont.lfStrikeOut = FALSE;
+		lFont.lfCharSet = DEFAULT_CHARSET;
+		lFont.lfOutPrecision = OUT_TT_PRECIS;
+		lFont.lfClipPrecision = CLIP_DEFAULT_PRECIS;
+		lFont.lfQuality = ANTIALIASED_QUALITY;
+		lFont.lfPitchAndFamily = DEFAULT_PITCH | FF_DONTCARE;
+		strcpy(lFont.lfFaceName,"Arial");
+
+		HFONT hFont = CreateFontIndirect(&lFont);*/
+		HFONT hFont = CreateFont
+		(
+			g_i_DISPLAY_FONT_HEIGHT, g_i_DISPLAY_FONT_WIDTH,
+			GM_ADVANCED, 0, FW_DEMIBOLD,
+			FALSE, FALSE, FALSE,
+			DEFAULT_CHARSET,
+			OUT_CHARACTER_PRECIS,
+			CLIP_CHARACTER_PRECIS,
+			ANTIALIASED_QUALITY,
+			DEFAULT_PITCH | FF_DONTCARE,
+			g_sz_DISPLAY_FONT
+		);
+		SendMessage(hDisplay, WM_SETFONT, (WPARAM)hFont, TRUE);
 
 		INT i_digit = 1;
 		CHAR sz_digit[2] = {};
@@ -156,12 +192,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				i_digit++;
 			}
 		}
-		
+
 		//////////////////////////////////////////////////////////////////////////////////////////////
 		CreateWindowEx
 		(
 			NULL, "Button", "0",
-			WS_CHILDWINDOW | WS_VISIBLE | BS_PUSHBUTTON,
+			WS_CHILDWINDOW | WS_VISIBLE | BS_PUSHBUTTON | BS_BITMAP,
 			g_i_BTN_START_X, g_i_BTN_START_Y + g_i_BTN_SIZE_WITH_INTERVAL * 3,
 			g_i_BTN_SIZE_DOUBLE, g_i_BTN_SIZE,
 			hwnd,
@@ -169,7 +205,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			GetModuleHandle(NULL),
 			NULL
 		);
-		SetSkin(hwnd);
+		SetSkin(hwnd, g_sz_DEFAULT_SKIN);
 		CreateWindowEx
 		(
 			NULL, "Button", ".",
@@ -239,8 +275,27 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 	}
 	break;
-
-
+	case WM_CTLCOLORSTATIC:
+	{
+		if ((HWND)lParam == GetDlgItem(hwnd, IDC_STATIC))
+		{
+			HDC hdc = (HDC)wParam;
+			SetBkMode(hdc, OPAQUE);
+			SetBkColor(hdc, RGB(240, 240, 240));
+			SetTextColor(hdc, RGB(255, 0, 0));
+			return (INT)GetStockObject(NULL_BRUSH);
+		}
+	}
+		break;
+	case WM_CTLCOLOREDIT:
+	{
+		HDC hdc = (HDC)wParam;
+		SetBkMode(hdc, OPAQUE);
+		SetBkColor(hdc, RGB(0, 0, 100)); HBRUSH hBrush = CreateSolidBrush(RGB(0, 0, 255));
+		SetTextColor(hdc, RGB(255, 0, 0));
+		return (LRESULT)hBrush;
+	}
+	break;
 	case WM_COMMAND:
 	{
 		CONST INT SIZE = 256;
@@ -356,16 +411,32 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		}
 	}
 	break;
-	
+	case WM_CONTEXTMENU:
+	{
+		HMENU hMenu = CreatePopupMenu();
+		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_STRING, IDC_EXIT, "Exit");
+		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_SEPARATOR, 0, NULL);
+		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_STRING, IDC_SQUARE, "Square buttons");
+		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_STRING, IDC_ROUND, "Round buttons");
+
+		switch (TrackPopupMenuEx(hMenu, TPM_BOTTOMALIGN | TPM_LEFTALIGN | TPM_RETURNCMD, LOWORD(lParam), HIWORD(lParam), hwnd, NULL))
+		{
+		case IDC_ROUND:	SetSkin(hwnd, "round_blue");	break;
+		case IDC_SQUARE:SetSkin(hwnd, "square_blue");	break;
+		case IDC_EXIT:	SendMessage(hwnd, IDC_EXIT, 0, 0);
+		}
+	}
+	break;
 	case WM_DESTROY:PostQuitMessage(0);		break;
+	case IDC_EXIT:
 	case WM_CLOSE:	DestroyWindow(hwnd);	break;
 	default:		return DefWindowProc(hwnd, uMsg, wParam, lParam);
 	}
 	return NULL;
 }
-VOID SetSkin(HWND hwnd)
+VOID SetSkin(HWND hwnd, CONST CHAR sz_skin[])
 {
-//	IDB_BUTTON_0	BITMAP			"ButtonsBPM\\square_blue\\button_0.bmp"
+	//	IDB_BUTTON_0	BITMAP			"ButtonsBPM\\square_blue\\button_0.bmp"
 	CONST INT SIZE = 10;
 	HWND hButton[SIZE] = {};
 	//HBITMAP hBitmap[SIZE] = {};
@@ -375,8 +446,15 @@ VOID SetSkin(HWND hwnd)
 		//hBitmap[i] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(i + IDB_BITMAP_0));
 		//HBITMAP hBitmap = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(i + IDB_BITMAP_0));
 		CHAR sz_filename[FILENAME_MAX] = {};
-		sprintf(sz_filename, "ButtonsBPM\\square_blue\\button_%i.bmp", i);
-		HBITMAP hBitmap = (HBITMAP)LoadImage(GetModuleHandle(NULL), sz_filename, IMAGE_BITMAP, g_i_BTN_SIZE, g_i_BTN_SIZE, LR_LOADFROMFILE);
+		sprintf(sz_filename, "ButtonsBPM\\%s\\button_%i.bmp", sz_skin, i);
+		HBITMAP hBitmap = (HBITMAP)LoadImage
+		(
+			GetModuleHandle(NULL),
+			sz_filename,
+			IMAGE_BITMAP,
+			i > 0 ? g_i_BTN_SIZE : g_i_BTN_SIZE_DOUBLE, g_i_BTN_SIZE,
+			LR_LOADFROMFILE
+		);
 		/*DWORD dwErrorMessageID = GetLastError();
 		LPSTR lpMessageBuffer = NULL;
 		DWORD dwSize = FormatMessage
