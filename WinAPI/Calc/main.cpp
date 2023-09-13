@@ -49,7 +49,8 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 	wc.hIcon = LoadIcon(hInstance, IDI_APPLICATION);
 	wc.hIconSm = LoadIcon(hInstance, IDI_APPLICATION);
 	wc.hCursor = LoadCursor(hInstance, IDC_ARROW);
-	wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
+	wc.hbrBackground = CreateSolidBrush(RGB(0, 0, 200));
+	//wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
 
 	wc.hInstance = hInstance;
 	wc.lpszMenuName = NULL;
@@ -271,8 +272,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			GetModuleHandle(NULL),
 			NULL
 		);
-
-
 	}
 	break;
 	case WM_CTLCOLORSTATIC:
@@ -281,12 +280,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		{
 			HDC hdc = (HDC)wParam;
 			SetBkMode(hdc, OPAQUE);
-			SetBkColor(hdc, RGB(240, 240, 240));
+			SetBkColor(hdc, RGB(0, 0, 100));
+			//SetBkColor(hdc, RGB(240, 240, 240));
 			SetTextColor(hdc, RGB(255, 0, 0));
 			return (INT)GetStockObject(NULL_BRUSH);
 		}
 	}
-		break;
+	break;
 	case WM_CTLCOLOREDIT:
 	{
 		HDC hdc = (HDC)wParam;
