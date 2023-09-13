@@ -2,6 +2,9 @@ https://github.com/okovtun/PU_211_Win.git
 https://www.youtube.com/watch?v=yJM6d4SDVyI&list=PLeqyOOqxeiIN-lZiZy9zFTwJcC2xuMA1O
 
 TODO:
+В качестве фона окна калькулятора использовать изображение *.bmp;
+
+TODO:
 1. В Синей теме окно программы должно быть синего цвета;
 2. Добавить зеленую тему;
 

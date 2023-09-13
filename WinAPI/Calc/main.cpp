@@ -32,6 +32,12 @@ CONST CHAR g_sz_DISPLAY_FONT[] = "Tahoma";
 CONST INT g_i_DISPLAY_FONT_HEIGHT = g_i_DISPLAY_HEIGHT - 2;
 CONST INT g_i_DISPLAY_FONT_WIDTH = g_i_DISPLAY_FONT_HEIGHT / 2.5;
 
+CONST COLORREF g_cr_SQUARE_BLUE = RGB(1, 96, 160);
+CONST COLORREF g_cr_ROUND_BLUE = RGB(41, 143, 209);
+
+CONST HBRUSH hBrushSquareBlue = CreateSolidBrush(g_cr_SQUARE_BLUE);
+CONST HBRUSH hBrushRoundBlue = CreateSolidBrush(g_cr_ROUND_BLUE);
+
 LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 VOID SetSkin(HWND hwnd, CONST CHAR sz_skin[]);
 
@@ -49,8 +55,8 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 	wc.hIcon = LoadIcon(hInstance, IDI_APPLICATION);
 	wc.hIconSm = LoadIcon(hInstance, IDI_APPLICATION);
 	wc.hCursor = LoadCursor(hInstance, IDC_ARROW);
-	wc.hbrBackground = CreateSolidBrush(RGB(0, 0, 200));
-	//wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
+	//wc.hbrBackground = CreateSolidBrush(RGB(1, 96, 160));
+	wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
 
 	wc.hInstance = hInstance;
 	wc.lpszMenuName = NULL;
@@ -103,6 +109,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	static INT operation = 0;
 	static BOOL input = FALSE;
 	static BOOL operation_input = false;
+
+	static COLORREF crBackground = RGB(0, 0, 240);
+	static HBRUSH hBrush = CreateSolidBrush(crBackground);
+	static CHAR sz_skin[FILENAME_MAX] = {};
+
 	switch (uMsg)
 	{
 	case WM_CREATE:
@@ -206,6 +217,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			GetModuleHandle(NULL),
 			NULL
 		);
+		strcpy(sz_skin, g_sz_DEFAULT_SKIN);
 		SetSkin(hwnd, g_sz_DEFAULT_SKIN);
 		CreateWindowEx
 		(
@@ -274,20 +286,31 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		);
 	}
 	break;
+	case WM_PAINT:
+	{
+		PAINTSTRUCT ps;
+		HDC hdc = BeginPaint(hwnd, &ps);
+		HBRUSH hBackground = CreateSolidBrush(crBackground);
+		FillRect(hdc, &ps.rcPaint, hBrush);
+		EndPaint(hwnd, &ps);
+		DeleteObject(hBackground);
+	}
+	break;
 	case WM_CTLCOLORSTATIC:
 	{
 		if ((HWND)lParam == GetDlgItem(hwnd, IDC_STATIC))
 		{
 			HDC hdc = (HDC)wParam;
-			SetBkMode(hdc, OPAQUE);
+			//SetBkMode(hdc, OPAQUE);
+			SetDCBrushColor(hdc, RGB(0, 0, 100));
 			SetBkColor(hdc, RGB(0, 0, 100));
 			//SetBkColor(hdc, RGB(240, 240, 240));
 			SetTextColor(hdc, RGB(255, 0, 0));
-			return (INT)GetStockObject(NULL_BRUSH);
+			return (int)GetStockObject(DC_BRUSH);
 		}
 	}
 	break;
-	case WM_CTLCOLOREDIT:
+	/*case WM_CTLCOLOREDIT:
 	{
 		HDC hdc = (HDC)wParam;
 		SetBkMode(hdc, OPAQUE);
@@ -295,7 +318,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		SetTextColor(hdc, RGB(255, 0, 0));
 		return (LRESULT)hBrush;
 	}
-	break;
+	break;*/
 	case WM_COMMAND:
 	{
 		CONST INT SIZE = 256;
@@ -421,10 +444,28 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		switch (TrackPopupMenuEx(hMenu, TPM_BOTTOMALIGN | TPM_LEFTALIGN | TPM_RETURNCMD, LOWORD(lParam), HIWORD(lParam), hwnd, NULL))
 		{
-		case IDC_ROUND:	SetSkin(hwnd, "round_blue");	break;
-		case IDC_SQUARE:SetSkin(hwnd, "square_blue");	break;
+		//case IDC_ROUND:	SetSkin(hwnd, "round_blue");	break;
+		//case IDC_SQUARE:SetSkin(hwnd, "square_blue");	break;
+		case IDC_ROUND:	strcpy(sz_skin, "round_blue");	crBackground = g_cr_ROUND_BLUE;	break;
+		case IDC_SQUARE:strcpy(sz_skin, "square_blue"); crBackground = g_cr_SQUARE_BLUE;break;
 		case IDC_EXIT:	SendMessage(hwnd, IDC_EXIT, 0, 0);
 		}
+		SetSkin(hwnd, sz_skin);
+		//SendMessage(hwnd, WM_PAINT, 0, 0);
+		/*BOOL update = UpdateWindow(hwnd);
+		DWORD dwErrorMessageID = GetLastError();
+		LPSTR lpMessageBuffer = NULL;
+		DWORD sdwSize = FormatMessage
+		(
+			FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+			NULL,
+			dwErrorMessageID,
+			MAKELANGID(LANG_NEUTRAL, SUBLANG_RUSSIAN_RUSSIA),
+			(LPSTR)&lpMessageBuffer,
+			0,
+			NULL
+		);
+		MessageBox(hwnd, lpMessageBuffer, "Error", MB_OK | MB_ICONERROR);*/
 	}
 	break;
 	case WM_DESTROY:PostQuitMessage(0);		break;
@@ -470,5 +511,11 @@ VOID SetSkin(HWND hwnd, CONST CHAR sz_skin[])
 		MessageBox(hwnd, lpMessageBuffer, "Error", MB_OK | MB_ICONERROR);*/
 		SendMessage(hButton[i], BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
 	}
-
+	//if (strcmp(sz_skin, "square_blue") == 0)	SetClassLongPtr(hwnd, GCLP_HBRBACKGROUND, (LONG_PTR)hBrushSquareBlue);
+	//if (strcmp(sz_skin, "round_blue") == 0)		SetClassLongPtr(hwnd, GCLP_HBRBACKGROUND, (LONG_PTR)hBrushRoundBlue);
+	HDC hdc = GetDC(hwnd);
+	if (strcmp(sz_skin, "square_blue") == 0)	SetDCBrushColor(hdc, RGB(1, 96, 160));
+	if (strcmp(sz_skin, "round_blue") == 0)		SetDCBrushColor(hdc, RGB(41, 143, 209));
+	ReleaseDC(hwnd, hdc);
+	UpdateWindow(hwnd);
 }
