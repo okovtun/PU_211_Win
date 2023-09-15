@@ -40,6 +40,8 @@ CONST HBRUSH hBrushRoundBlue = CreateSolidBrush(g_cr_ROUND_BLUE);
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 VOID SetSkin(HWND hwnd, CONST CHAR sz_skin[]);
+VOID FormatAndDisplayMessage(HWND hwnd, DWORD dwErrorMessageID);
+VOID SetWindowBackground(HWND hwnd, COLORREF crBackground);
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, INT nCmdShow)
 {
@@ -286,14 +288,26 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		);
 	}
 	break;
+	//case WM_ERASEBKGND:
+	case WM_PRINT:
 	case WM_PAINT:
 	{
+		//HDC hdc = GetDC(hwnd);
+		HBRUSH hBackground = CreateSolidBrush(crBackground);
 		PAINTSTRUCT ps;
 		HDC hdc = BeginPaint(hwnd, &ps);
-		HBRUSH hBackground = CreateSolidBrush(crBackground);
-		FillRect(hdc, &ps.rcPaint, hBrush);
+		//ZeroMemory(&ps, sizeof(ps));
+		//ps.hdc = hdc;
+		//ps.fErase = TRUE;
+		//GetClientRect(hwnd, &ps.rcPaint);
+		//SelectObject(hdc, hBackground);
+		FillRect(ps.hdc, &ps.rcPaint, hBackground);
+		//FillRect(hdc, &ps.rcPaint, hBrush);
+		FormatAndDisplayMessage(hwnd, GetLastError());
+		
+		//DeleteObject(hBackground);
+		//ReleaseDC(hwnd, hdc);
 		EndPaint(hwnd, &ps);
-		DeleteObject(hBackground);
 	}
 	break;
 	case WM_CTLCOLORSTATIC:
@@ -451,7 +465,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		case IDC_EXIT:	SendMessage(hwnd, IDC_EXIT, 0, 0);
 		}
 		SetSkin(hwnd, sz_skin);
-		//SendMessage(hwnd, WM_PAINT, 0, 0);
+		SetWindowBackground(hwnd, crBackground);
+		//UpdateWindow(hwnd);
+		//SendMessage(hwnd, WM_PRINT, 0, PRF_CLIENT | PRF_ERASEBKGND);
 		/*BOOL update = UpdateWindow(hwnd);
 		DWORD dwErrorMessageID = GetLastError();
 		LPSTR lpMessageBuffer = NULL;
@@ -516,6 +532,46 @@ VOID SetSkin(HWND hwnd, CONST CHAR sz_skin[])
 	HDC hdc = GetDC(hwnd);
 	if (strcmp(sz_skin, "square_blue") == 0)	SetDCBrushColor(hdc, RGB(1, 96, 160));
 	if (strcmp(sz_skin, "round_blue") == 0)		SetDCBrushColor(hdc, RGB(41, 143, 209));
+	//UpdateWindow(hwnd);
+	//SendMessage(hwnd, WM_PAINT, 0, 0);
 	ReleaseDC(hwnd, hdc);
+}
+VOID FormatAndDisplayMessage(HWND hwnd, DWORD dwErrorMessageID)
+{
+	//DWORD dwErrorMessageID = GetLastError();
+	LPSTR lpMessageBuffer = NULL;
+	DWORD dwSize = FormatMessage
+	(
+		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+		NULL,
+		dwErrorMessageID,
+		MAKELANGID(LANG_NEUTRAL, SUBLANG_RUSSIAN_RUSSIA),
+		(LPSTR)&lpMessageBuffer,
+		0,
+		NULL
+	);
+	MessageBox(hwnd, lpMessageBuffer, "Error", MB_OK | MB_ICONERROR);
+
+}
+VOID SetWindowBackground(HWND hwnd, COLORREF crBackground)
+{
+	HDC hdc = GetDC(hwnd);
+	//SendMessage(hwnd, WM_ERASEBKGND, (WPARAM)hdc, 0);
+	//PAINTSTRUCT ps;
+	//BeginPaint(hwnd, &ps);
+	//ZeroMemory(&ps, sizeof(ps));
+	//ps.hdc = hdc;
+	//ps.fErase = TRUE;
+	RECT rect;
+	GetClientRect(hwnd, &rect);
+	HBRUSH hBackground = CreateSolidBrush(crBackground);
+	//SelectObject(hdc, hBackground);
+	FillRect(hdc, &rect, hBackground);
+	//FillRect(hdc, &ps.rcPaint, hBrush);
+	FormatAndDisplayMessage(hwnd, GetLastError());
+
+	DeleteObject(hBackground);
+	ReleaseDC(hwnd, hdc);
+	//EndPaint(hwnd, &ps);
 	UpdateWindow(hwnd);
 }
