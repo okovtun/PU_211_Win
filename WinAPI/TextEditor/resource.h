@@ -2,8 +2,11 @@
 // Microsoft Visual C++ generated include file.
 // Used by Resource.rc
 //
-#define IDC_EDIT						100
-#define IDR_MAIN_MENU                   101
+#define IDC_EDIT						  100
+#define IDR_MAIN_MENU                     101
+										  
+#define IDC_STATUS						  102
+
 #define ID_HELP_ABOUT                   40001
 #define ID_EDIT_FONT                    40002
 #define ID_FILE_NEW                     40003
