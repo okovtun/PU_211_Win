@@ -2,6 +2,10 @@ https://github.com/okovtun/PU_211_Win.git
 https://www.youtube.com/watch?v=yJM6d4SDVyI&list=PLeqyOOqxeiIN-lZiZy9zFTwJcC2xuMA1O
 
 TODO:
+1. Если галочка 'Show date' установлена, то под временем должна отображаться дата;
+2. 
+
+DONE:
 1. При сохранении и открытии файла в строке заголовка окна должно появляться имя файла,	DONE
    А в строке состояния полный путь к файлу;
 2. Текстовый редактор должен открывать файлы при затаскивании ACCEPTFILES;				DONE
