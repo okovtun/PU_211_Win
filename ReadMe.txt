@@ -2,8 +2,12 @@ https://github.com/okovtun/PU_211_Win.git
 https://www.youtube.com/watch?v=yJM6d4SDVyI&list=PLeqyOOqxeiIN-lZiZy9zFTwJcC2xuMA1O
 
 TODO:
-1. Если галочка 'Show date' установлена, то под временем должна отображаться дата;
-2. 
+1. Прикрутить к 'label1' свой шрифт:
+	https://www.1001fonts.com/digital-fonts.html?page=7
+	https://www.fontspace.com/category/digital
+2. Добавить палитру цветов, которая позволяет выбрать цвет шрифта, и цвет фона для часов;
+3. Добавить кнопку, которая позволяет выбрать шрифт для часов;
+4. Обеспечить выбор шрифта и фона через контекстное меню;
 
 DONE:
 1. При сохранении и открытии файла в строке заголовка окна должно появляться имя файла,	DONE
