@@ -38,13 +38,13 @@
 			this.btnDateCalculator = new System.Windows.Forms.Button();
 			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
 			this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.cmOverAllWindows = new System.Windows.Forms.ToolStripMenuItem();
 			this.cmShowDate = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.cmShowControls = new System.Windows.Forms.ToolStripMenuItem();
 			this.cmHideControls = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.cmExit = new System.Windows.Forms.ToolStripMenuItem();
-			this.cmOverAllWindows = new System.Windows.Forms.ToolStripMenuItem();
 			this.contextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -55,9 +55,10 @@
 			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.label1.Location = new System.Drawing.Point(28, 28);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(204, 73);
+			this.label1.Size = new System.Drawing.Size(199, 84);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "label1";
+			this.label1.UseCompatibleTextRendering = true;
 			this.label1.MouseHover += new System.EventHandler(this.label1_MouseHover);
 			// 
 			// timer1
@@ -126,53 +127,53 @@
             this.toolStripSeparator1,
             this.cmExit});
 			this.contextMenuStrip.Name = "contextMenuStrip";
-			this.contextMenuStrip.Size = new System.Drawing.Size(181, 148);
+			this.contextMenuStrip.Size = new System.Drawing.Size(167, 126);
+			// 
+			// cmOverAllWindows
+			// 
+			this.cmOverAllWindows.CheckOnClick = true;
+			this.cmOverAllWindows.Name = "cmOverAllWindows";
+			this.cmOverAllWindows.Size = new System.Drawing.Size(166, 22);
+			this.cmOverAllWindows.Text = "Over all Windows";
+			this.cmOverAllWindows.Click += new System.EventHandler(this.cmOverAllWindows_Click);
 			// 
 			// cmShowDate
 			// 
 			this.cmShowDate.Name = "cmShowDate";
-			this.cmShowDate.Size = new System.Drawing.Size(180, 22);
+			this.cmShowDate.Size = new System.Drawing.Size(166, 22);
 			this.cmShowDate.Text = "Show date";
 			this.cmShowDate.Click += new System.EventHandler(this.cmShowDate_Click);
 			// 
 			// toolStripSeparator2
 			// 
 			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+			this.toolStripSeparator2.Size = new System.Drawing.Size(163, 6);
 			// 
 			// cmShowControls
 			// 
 			this.cmShowControls.Name = "cmShowControls";
-			this.cmShowControls.Size = new System.Drawing.Size(180, 22);
+			this.cmShowControls.Size = new System.Drawing.Size(166, 22);
 			this.cmShowControls.Text = "Show controls";
 			this.cmShowControls.Click += new System.EventHandler(this.cmShowControls_Click);
 			// 
 			// cmHideControls
 			// 
 			this.cmHideControls.Name = "cmHideControls";
-			this.cmHideControls.Size = new System.Drawing.Size(180, 22);
+			this.cmHideControls.Size = new System.Drawing.Size(166, 22);
 			this.cmHideControls.Text = "Hide controls";
 			this.cmHideControls.Click += new System.EventHandler(this.cmHideControls_Click);
 			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+			this.toolStripSeparator1.Size = new System.Drawing.Size(163, 6);
 			// 
 			// cmExit
 			// 
 			this.cmExit.Name = "cmExit";
-			this.cmExit.Size = new System.Drawing.Size(180, 22);
+			this.cmExit.Size = new System.Drawing.Size(166, 22);
 			this.cmExit.Text = "Exit";
 			this.cmExit.Click += new System.EventHandler(this.cmExit_Click);
-			// 
-			// cmOverAllWindows
-			// 
-			this.cmOverAllWindows.CheckOnClick = true;
-			this.cmOverAllWindows.Name = "cmOverAllWindows";
-			this.cmOverAllWindows.Size = new System.Drawing.Size(180, 22);
-			this.cmOverAllWindows.Text = "Over all Windows";
-			this.cmOverAllWindows.Click += new System.EventHandler(this.cmOverAllWindows_Click);
 			// 
 			// Form1
 			// 

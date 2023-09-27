@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Text;
 
 namespace Clock
 {
@@ -21,6 +22,22 @@ namespace Clock
 				System.Windows.Forms.Screen.PrimaryScreen.Bounds.Top + 150
 			);
 			ControlsVisible(false);
+			string currentDirectory = System.IO.Directory.GetCurrentDirectory();
+			//MessageBox.Show(this, currentDirectory, "Current directory", MessageBoxButtons.OK);
+			CreateCustomLabelFont();
+		}
+
+		void CreateCustomLabelFont()
+		{
+			PrivateFontCollection pfc = new PrivateFontCollection();
+			//D:\Users\Clayman\Source\Repos\PU_211_Win\FindowsForms\Clock\bin\Debug
+			//D:\Users\Clayman\Source\Repos\PU_211_Win\FindowsForms\Clock\Fonts
+			pfc.AddFontFile("..\\..\\Fonts\\digital-7.ttf");
+			Font font = new Font(pfc.Families[0], label1.Font.Size);
+			pfc.Dispose();
+			label1.Font = font;
+
+			label1.
 		}
 
 		private void timer1_Tick(object sender, EventArgs e)
