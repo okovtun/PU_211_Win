@@ -8,11 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Text;
+using System.IO;
 
 namespace Clock
 {
 	public partial class Form1 : Form
 	{
+		private string[] fonts;
+
+		public string[] Fonts
+		{
+			get { return fonts; }
+			set { fonts = value; }
+		}
+
 		public Form1()
 		{
 			InitializeComponent();
@@ -22,9 +31,25 @@ namespace Clock
 				System.Windows.Forms.Screen.PrimaryScreen.Bounds.Top + 150
 			);
 			ControlsVisible(false);
+			SetFontDirectory();
+			CreateCustomLabelFont();
+		}
+
+		void SetFontDirectory()
+		{
 			string currentDirectory = System.IO.Directory.GetCurrentDirectory();
 			//MessageBox.Show(this, currentDirectory, "Current directory", MessageBoxButtons.OK);
-			CreateCustomLabelFont();
+			string[] currentDirectoryItems = currentDirectory.Split('\\');
+			Array.Resize(ref currentDirectoryItems, currentDirectoryItems.Length - 2);
+			string newCurrentDirectory = "";
+			foreach (string i in currentDirectoryItems)
+			{
+				newCurrentDirectory += i;
+				newCurrentDirectory += "\\";
+			}
+			newCurrentDirectory += "Fonts";
+			//MessageBox.Show(this, $"{currentDirectory}\n{newCurrentDirectory}", "Current directory", MessageBoxButtons.OK);
+			Fonts = Directory.GetFiles(newCurrentDirectory);
 		}
 
 		void CreateCustomLabelFont()
@@ -84,7 +109,8 @@ namespace Clock
 			//btnDateCalculator.Visible = true;
 			//btnHideControls.Visible = true;
 			//btnClose.Visible = true;
-			ControlsVisible(true);
+
+			//ControlsVisible(true);
 		}
 
 		private void cmExit_Click(object sender, EventArgs e)
@@ -112,6 +138,17 @@ namespace Clock
 		{
 			this.TopMost = !this.TopMost;
 			//cmOverAllWindows.Checked = cmOverAllWindows.Checked;
+		}
+
+		private void cms_lbl1_ItemShowControls_Click(object sender, EventArgs e)
+		{
+			ControlsVisible(cms_lbl1_ItemShowControls.Checked);
+		}
+
+		private void cms_lbl1_ItemFont_Click(object sender, EventArgs e)
+		{
+			formChooseFont fcf = new formChooseFont();
+			fcf.Show(this);
 		}
 	}
 }
