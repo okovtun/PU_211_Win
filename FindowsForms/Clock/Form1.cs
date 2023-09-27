@@ -32,12 +32,14 @@ namespace Clock
 			PrivateFontCollection pfc = new PrivateFontCollection();
 			//D:\Users\Clayman\Source\Repos\PU_211_Win\FindowsForms\Clock\bin\Debug
 			//D:\Users\Clayman\Source\Repos\PU_211_Win\FindowsForms\Clock\Fonts
-			pfc.AddFontFile("..\\..\\Fonts\\digital-7.ttf");
+			//pfc.AddFontFile("..\\..\\Fonts\\digital-7.ttf");
+			pfc.AddFontFile("..\\..\\Fonts\\TrueType\\SFDigitalReadout-Heavy.ttf");
 			Font font = new Font(pfc.Families[0], label1.Font.Size);
 			pfc.Dispose();
 			label1.Font = font;
 
-			label1.
+			label1.BackColor = Color.Black;
+			label1.ForeColor = Color.Red;
 		}
 
 		private void timer1_Tick(object sender, EventArgs e)
