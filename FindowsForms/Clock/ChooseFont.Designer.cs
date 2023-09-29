@@ -42,6 +42,7 @@
 			this.cbFont.Name = "cbFont";
 			this.cbFont.Size = new System.Drawing.Size(373, 33);
 			this.cbFont.TabIndex = 0;
+			this.cbFont.SelectionChangeCommitted += new System.EventHandler(this.cbFont_SelectionChangeCommitted);
 			// 
 			// btnOK
 			// 
@@ -52,6 +53,7 @@
 			this.btnOK.TabIndex = 1;
 			this.btnOK.Text = "OK";
 			this.btnOK.UseVisualStyleBackColor = true;
+			this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
 			// 
 			// btnCancel
 			// 
