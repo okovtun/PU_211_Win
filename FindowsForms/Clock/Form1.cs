@@ -15,6 +15,7 @@ namespace Clock
 	public partial class Form1 : Form
 	{
 		private string[] fonts;
+		PrivateFontCollection pfc = new PrivateFontCollection();
 
 		public string[] Fonts
 		{
@@ -54,7 +55,9 @@ namespace Clock
 
 		void CreateCustomLabelFont()
 		{
-			PrivateFontCollection pfc = new PrivateFontCollection();
+			//PrivateFontCollection pfc = new PrivateFontCollection();
+
+
 			//D:\Users\Clayman\Source\Repos\PU_211_Win\FindowsForms\Clock\bin\Debug
 			//D:\Users\Clayman\Source\Repos\PU_211_Win\FindowsForms\Clock\Fonts
 			//pfc.AddFontFile("..\\..\\Fonts\\digital-7.ttf");
@@ -149,6 +152,14 @@ namespace Clock
 		{
 			formChooseFont fcf = new formChooseFont();
 			fcf.Show(this);
+		}
+
+		private void cms_lbl1_ItemFontColor_Click(object sender, EventArgs e)
+		{
+			//FormColor fc = new FormColor();
+			//fc.Show(this);
+			if (colorDialog1.ShowDialog() == DialogResult.OK)
+				label1.ForeColor = colorDialog1.Color;
 		}
 	}
 }
