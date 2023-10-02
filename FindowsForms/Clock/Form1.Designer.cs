@@ -31,6 +31,11 @@
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
 			this.label1 = new System.Windows.Forms.Label();
+			this.cmsLable1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.cms_lbl1_ItemFont = new System.Windows.Forms.ToolStripMenuItem();
+			this.cms_lbl1_ItemFontColor = new System.Windows.Forms.ToolStripMenuItem();
+			this.cmd_lbl1_ItemBackColor = new System.Windows.Forms.ToolStripMenuItem();
+			this.cms_lbl1_ItemShowControls = new System.Windows.Forms.ToolStripMenuItem();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.cbShowDate = new System.Windows.Forms.CheckBox();
 			this.btnHideControls = new System.Windows.Forms.Button();
@@ -45,13 +50,8 @@
 			this.cmHideControls = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.cmExit = new System.Windows.Forms.ToolStripMenuItem();
-			this.cmsLable1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.cms_lbl1_ItemFont = new System.Windows.Forms.ToolStripMenuItem();
-			this.cms_lbl1_ItemFontColor = new System.Windows.Forms.ToolStripMenuItem();
-			this.cmd_lbl1_ItemBackColor = new System.Windows.Forms.ToolStripMenuItem();
-			this.cms_lbl1_ItemShowControls = new System.Windows.Forms.ToolStripMenuItem();
-			this.contextMenuStrip.SuspendLayout();
 			this.cmsLable1.SuspendLayout();
+			this.contextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -62,11 +62,48 @@
 			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.label1.Location = new System.Drawing.Point(28, 28);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(199, 84);
+			this.label1.Size = new System.Drawing.Size(395, 84);
 			this.label1.TabIndex = 0;
-			this.label1.Text = "label1";
+			this.label1.Text = "00:00:00 AM";
 			this.label1.UseCompatibleTextRendering = true;
 			this.label1.MouseHover += new System.EventHandler(this.label1_MouseHover);
+			// 
+			// cmsLable1
+			// 
+			this.cmsLable1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cms_lbl1_ItemFont,
+            this.cms_lbl1_ItemFontColor,
+            this.cmd_lbl1_ItemBackColor,
+            this.cms_lbl1_ItemShowControls});
+			this.cmsLable1.Name = "cmsLable1";
+			this.cmsLable1.Size = new System.Drawing.Size(162, 92);
+			// 
+			// cms_lbl1_ItemFont
+			// 
+			this.cms_lbl1_ItemFont.Name = "cms_lbl1_ItemFont";
+			this.cms_lbl1_ItemFont.Size = new System.Drawing.Size(161, 22);
+			this.cms_lbl1_ItemFont.Text = "Font";
+			this.cms_lbl1_ItemFont.Click += new System.EventHandler(this.cms_lbl1_ItemFont_Click);
+			// 
+			// cms_lbl1_ItemFontColor
+			// 
+			this.cms_lbl1_ItemFontColor.Name = "cms_lbl1_ItemFontColor";
+			this.cms_lbl1_ItemFontColor.Size = new System.Drawing.Size(161, 22);
+			this.cms_lbl1_ItemFontColor.Text = "Font color";
+			// 
+			// cmd_lbl1_ItemBackColor
+			// 
+			this.cmd_lbl1_ItemBackColor.Name = "cmd_lbl1_ItemBackColor";
+			this.cmd_lbl1_ItemBackColor.Size = new System.Drawing.Size(161, 22);
+			this.cmd_lbl1_ItemBackColor.Text = "Backgroud color";
+			// 
+			// cms_lbl1_ItemShowControls
+			// 
+			this.cms_lbl1_ItemShowControls.CheckOnClick = true;
+			this.cms_lbl1_ItemShowControls.Name = "cms_lbl1_ItemShowControls";
+			this.cms_lbl1_ItemShowControls.Size = new System.Drawing.Size(161, 22);
+			this.cms_lbl1_ItemShowControls.Text = "Show control";
+			this.cms_lbl1_ItemShowControls.Click += new System.EventHandler(this.cms_lbl1_ItemShowControls_Click);
 			// 
 			// timer1
 			// 
@@ -182,43 +219,6 @@
 			this.cmExit.Text = "Exit";
 			this.cmExit.Click += new System.EventHandler(this.cmExit_Click);
 			// 
-			// cmsLable1
-			// 
-			this.cmsLable1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cms_lbl1_ItemFont,
-            this.cms_lbl1_ItemFontColor,
-            this.cmd_lbl1_ItemBackColor,
-            this.cms_lbl1_ItemShowControls});
-			this.cmsLable1.Name = "cmsLable1";
-			this.cmsLable1.Size = new System.Drawing.Size(181, 114);
-			// 
-			// cms_lbl1_ItemFont
-			// 
-			this.cms_lbl1_ItemFont.Name = "cms_lbl1_ItemFont";
-			this.cms_lbl1_ItemFont.Size = new System.Drawing.Size(180, 22);
-			this.cms_lbl1_ItemFont.Text = "Font";
-			this.cms_lbl1_ItemFont.Click += new System.EventHandler(this.cms_lbl1_ItemFont_Click);
-			// 
-			// cms_lbl1_ItemFontColor
-			// 
-			this.cms_lbl1_ItemFontColor.Name = "cms_lbl1_ItemFontColor";
-			this.cms_lbl1_ItemFontColor.Size = new System.Drawing.Size(180, 22);
-			this.cms_lbl1_ItemFontColor.Text = "Font color";
-			// 
-			// cmd_lbl1_ItemBackColor
-			// 
-			this.cmd_lbl1_ItemBackColor.Name = "cmd_lbl1_ItemBackColor";
-			this.cmd_lbl1_ItemBackColor.Size = new System.Drawing.Size(180, 22);
-			this.cmd_lbl1_ItemBackColor.Text = "Backgroud color";
-			// 
-			// cms_lbl1_ItemShowControls
-			// 
-			this.cms_lbl1_ItemShowControls.CheckOnClick = true;
-			this.cms_lbl1_ItemShowControls.Name = "cms_lbl1_ItemShowControls";
-			this.cms_lbl1_ItemShowControls.Size = new System.Drawing.Size(180, 22);
-			this.cms_lbl1_ItemShowControls.Text = "Show control";
-			this.cms_lbl1_ItemShowControls.Click += new System.EventHandler(this.cms_lbl1_ItemShowControls_Click);
-			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -238,8 +238,8 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "MyClock";
 			this.TransparencyKey = System.Drawing.SystemColors.Control;
-			this.contextMenuStrip.ResumeLayout(false);
 			this.cmsLable1.ResumeLayout(false);
+			this.contextMenuStrip.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

@@ -15,6 +15,14 @@ namespace Clock
 	public partial class Form1 : Form
 	{
 		private string[] fonts;
+		private string fontDirectory;
+
+		public string FontDirectory
+		{
+			get { return fontDirectory; }
+			set { fontDirectory = value; }
+		}
+
 
 		public string[] Fonts
 		{
@@ -50,6 +58,7 @@ namespace Clock
 			newCurrentDirectory += "Fonts";
 			//MessageBox.Show(this, $"{currentDirectory}\n{newCurrentDirectory}", "Current directory", MessageBoxButtons.OK);
 			Fonts = Directory.GetFiles(newCurrentDirectory);
+			FontDirectory = newCurrentDirectory;
 		}
 
 		void CreateCustomLabelFont()
@@ -69,6 +78,10 @@ namespace Clock
 
 		private void timer1_Tick(object sender, EventArgs e)
 		{
+
+			//label1.PreferredWidth = 430;
+			//label1.PreferredHeight = 84;
+			//label1 = new Label();
 			label1.Text = DateTime.Now.ToString("HH:mm:ss tt\n");
 			if (cbShowDate.Checked)
 			{
@@ -147,8 +160,11 @@ namespace Clock
 
 		private void cms_lbl1_ItemFont_Click(object sender, EventArgs e)
 		{
-			formChooseFont fcf = new formChooseFont();
-			fcf.Show(this);
+			formChooseFont fcf = new formChooseFont(label1.Font, FontDirectory);
+			fcf.ShowDialog(this);
+			label1.Font = fcf.OldFont;
+			FontDirectory = fcf.FontDirectory;
+			string str = fontDirectory;
 		}
 	}
 }

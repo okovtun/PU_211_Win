@@ -2,9 +2,6 @@ https://github.com/okovtun/PU_211_Win.git
 https://www.youtube.com/watch?v=yJM6d4SDVyI&list=PLeqyOOqxeiIN-lZiZy9zFTwJcC2xuMA1O
 
 TODO:
-1. Установить QtCreator:	https://drive.google.com/drive/folders/1nJUXS1MzBZzO6m9dcGMua-_poyvrlTMp?usp=sharing
-
-TODO:
 1. Прикрутить к 'label1' свой шрифт:						DONE
 	https://www.1001fonts.com/digital-fonts.html?page=7
 	https://www.fontspace.com/category/digital
