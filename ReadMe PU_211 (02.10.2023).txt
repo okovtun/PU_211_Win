@@ -1,15 +1,7 @@
 https://github.com/okovtun/PU_211_Win.git
 https://www.youtube.com/watch?v=yJM6d4SDVyI&list=PLeqyOOqxeiIN-lZiZy9zFTwJcC2xuMA1O
 
-
 TODO:
-0. При открытии файла разделить фильтры для '*.mp3' и '*.flac'; 
-1. При открытии файла, в 'labelDuration' должна отображаться продожжительность композиции;
-2. Слайдер 'Progress' должен отображать какая часть композиции проиграна;
-3. Во время восроизведения 'labelPlayed' должен отображать сколько времени играет композиция;
-4. При перемещении слайдера 'horizontalSliderProgress', проигрывание должно переходить на установленную позицию (прокрутка);
-
-DONE:
 1. Установить QtCreator:	https://drive.google.com/drive/folders/1nJUXS1MzBZzO6m9dcGMua-_poyvrlTMp?usp=sharing
 
 TODO:
