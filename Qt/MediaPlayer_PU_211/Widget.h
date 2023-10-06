@@ -22,10 +22,13 @@ private slots:
 	void on_horizontalSliderVolume_valueChanged(int value);
 
 	void on_pushButtonPlay_clicked();
-
 	void on_pushButtonPause_clicked();
-
 	void on_pushButtonStop_clicked();
+
+	void on_duration_changed(qint64 duration);
+	void on_position_changed(qint64 position);
+
+	void on_horizontalSliderProgress_valueChanged(qint64 position);
 
 private:
 	Ui::Widget *ui;
