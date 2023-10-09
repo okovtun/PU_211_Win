@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>676</width>
-    <height>231</height>
+    <height>408</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -98,9 +98,9 @@
   <widget class="QSlider" name="horizontalSliderVolume">
    <property name="geometry">
     <rect>
-     <x>429</x>
+     <x>449</x>
      <y>70</y>
-     <width>221</width>
+     <width>201</width>
      <height>20</height>
     </rect>
    </property>
@@ -171,6 +171,29 @@
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonMute">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>70</y>
+     <width>51</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QTableView" name="tablePlaylist">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>160</y>
+     <width>621</width>
+     <height>231</height>
+    </rect>
    </property>
   </widget>
  </widget>

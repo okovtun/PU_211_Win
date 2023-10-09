@@ -12,9 +12,11 @@
 #include <QtCore/QVariant>
 #include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
+#include <QtWidgets/QTableView>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -34,12 +36,14 @@ public:
     QLabel *labelPlayed;
     QLabel *labelDuration;
     QPushButton *pushButtonStop;
+    QPushButton *pushButtonMute;
+    QTableView *tablePlaylist;
 
     void setupUi(QWidget *Widget)
     {
         if (Widget->objectName().isEmpty())
             Widget->setObjectName(QString::fromUtf8("Widget"));
-        Widget->resize(676, 231);
+        Widget->resize(676, 408);
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/ICO/ICO/sound.ico"), QSize(), QIcon::Normal, QIcon::Off);
         Widget->setWindowIcon(icon);
@@ -63,7 +67,7 @@ public:
         pushButtonNext->setGeometry(QRect(330, 70, 51, 21));
         horizontalSliderVolume = new QSlider(Widget);
         horizontalSliderVolume->setObjectName(QString::fromUtf8("horizontalSliderVolume"));
-        horizontalSliderVolume->setGeometry(QRect(429, 70, 221, 20));
+        horizontalSliderVolume->setGeometry(QRect(449, 70, 201, 20));
         horizontalSliderVolume->setOrientation(Qt::Horizontal);
         horizontalSliderProgress = new QSlider(Widget);
         horizontalSliderProgress->setObjectName(QString::fromUtf8("horizontalSliderProgress"));
@@ -81,6 +85,12 @@ public:
         pushButtonStop = new QPushButton(Widget);
         pushButtonStop->setObjectName(QString::fromUtf8("pushButtonStop"));
         pushButtonStop->setGeometry(QRect(270, 70, 51, 21));
+        pushButtonMute = new QPushButton(Widget);
+        pushButtonMute->setObjectName(QString::fromUtf8("pushButtonMute"));
+        pushButtonMute->setGeometry(QRect(390, 70, 51, 21));
+        tablePlaylist = new QTableView(Widget);
+        tablePlaylist->setObjectName(QString::fromUtf8("tablePlaylist"));
+        tablePlaylist->setGeometry(QRect(30, 160, 621, 231));
 
         retranslateUi(Widget);
 
@@ -100,6 +110,7 @@ public:
         labelPlayed->setText(QCoreApplication::translate("Widget", "Played:", nullptr));
         labelDuration->setText(QCoreApplication::translate("Widget", "Duration:", nullptr));
         pushButtonStop->setText(QString());
+        pushButtonMute->setText(QString());
     } // retranslateUi
 
 };
