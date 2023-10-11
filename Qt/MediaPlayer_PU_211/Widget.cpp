@@ -4,6 +4,8 @@
 #include <QFileDialog>
 #include <QDir>
 #include <QTime>
+#include <QMessageBox>
+#include <QMediaContent>
 
 Widget::Widget(QWidget *parent)
 	: QWidget(parent)
@@ -48,10 +50,30 @@ Widget::Widget(QWidget *parent)
 		ui->labelComposition->setText(m_playlist_model->data(m_playlist_model->index(index, 0)).toString());
 	}
 			);
+	m_playlist->load(QUrl::fromLocalFile("D:/Users/Clayman/Source/Repos/PU_211_Win/Qt/build-MediaPlayer_PU_211-Desktop_Qt_5_15_0_MSVC2015_64bit-Debug/debug/playlist.m3u"), "m3u");
+	for(int i = 0; i < m_playlist->mediaCount(); i++)
+	{
+//		QList<QStandardItem*> item =
+		QMediaContent content = m_playlist->media(i);
+		QString url = content.canonicalUrl().url();
+		//QMessageBox mb(QMessageBox::Icon::Information, QString("URL"), url, QMessageBox::StandardButton::Ok, this);
+		//mb.show();
+		QList<QStandardItem*> items;
+		items.append(new QStandardItem(QDir(url).dirName()));
+		items.append(new QStandardItem(url));
+		m_playlist_model->appendRow(items);
+	}
 }
 
 Widget::~Widget()
 {
+	//QMessageBox mb(QMessageBox::Icon::Information, QString("Buy"), QString("Buy"), QMessageBox::StandardButton::Ok, this);
+	//mb.show();
+	//m_playlist->save(QUrl::fromLocalFile("D:/Users/Clayman/Source/Repos/PU_211_Win/Qt/build-MediaPlayer_PU_211-Desktop_Qt_5_15_0_MSVC2015_64bit-Debug/debug/playlist.m3u"), "m3u");
+
+	delete this->m_playlist_model;
+	delete this->m_playlist;
+	delete this->m_player;
 	delete ui;
 }
 

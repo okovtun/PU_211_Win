@@ -307,6 +307,13 @@ debug\moc_Widget.cpp: ..\MediaPlayer_PU_211\Widget.h \
 		D:\Qt\5.15.0\msvc2015_64\include\QtCore\qmetaobject.h \
 		D:\Qt\5.15.0\msvc2015_64\include\QtMultimedia\qaudio.h \
 		D:\Qt\5.15.0\msvc2015_64\include\QtNetwork\qnetworkconfiguration.h \
+		D:\Qt\5.15.0\msvc2015_64\include\QtMultimedia\QMediaPlaylist \
+		D:\Qt\5.15.0\msvc2015_64\include\QtMultimedia\qmediaplaylist.h \
+		D:\Qt\5.15.0\msvc2015_64\include\QtMultimedia\qmediabindableinterface.h \
+		D:\Qt\5.15.0\msvc2015_64\include\QtGui\QStandardItemModel \
+		D:\Qt\5.15.0\msvc2015_64\include\QtGui\qstandarditemmodel.h \
+		D:\Qt\5.15.0\msvc2015_64\include\QtCore\qabstractitemmodel.h \
+		D:\Qt\5.15.0\msvc2015_64\include\QtGui\qicon.h \
 		debug\moc_predefs.h \
 		D:\Qt\5.15.0\msvc2015_64\bin\moc.exe
 	D:\Qt\5.15.0\msvc2015_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/Users/Clayman/Source/Repos/PU_211_Win/Qt/build-MediaPlayer_PU_211-Desktop_Qt_5_15_0_MSVC2015_64bit-Debug/debug/moc_predefs.h -ID:/Qt/5.15.0/msvc2015_64/mkspecs/win32-msvc -ID:/Users/Clayman/Source/Repos/PU_211_Win/Qt/MediaPlayer_PU_211 -ID:/Qt/5.15.0/msvc2015_64/include -ID:/Qt/5.15.0/msvc2015_64/include/QtMultimedia -ID:/Qt/5.15.0/msvc2015_64/include/QtWidgets -ID:/Qt/5.15.0/msvc2015_64/include/QtGui -ID:/Qt/5.15.0/msvc2015_64/include/QtANGLE -ID:/Qt/5.15.0/msvc2015_64/include/QtNetwork -ID:/Qt/5.15.0/msvc2015_64/include/QtCore -I. -I"C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.16.27023\ATLMFC\include" -I"C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.16.27023\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\shared" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\winrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\cppwinrt" ..\MediaPlayer_PU_211\Widget.h -o debug\moc_Widget.cpp
@@ -457,6 +464,13 @@ debug\main.obj: ..\MediaPlayer_PU_211\main.cpp ..\MediaPlayer_PU_211\Widget.h \
 		D:\Qt\5.15.0\msvc2015_64\include\QtCore\qmetaobject.h \
 		D:\Qt\5.15.0\msvc2015_64\include\QtMultimedia\qaudio.h \
 		D:\Qt\5.15.0\msvc2015_64\include\QtNetwork\qnetworkconfiguration.h \
+		D:\Qt\5.15.0\msvc2015_64\include\QtMultimedia\QMediaPlaylist \
+		D:\Qt\5.15.0\msvc2015_64\include\QtMultimedia\qmediaplaylist.h \
+		D:\Qt\5.15.0\msvc2015_64\include\QtMultimedia\qmediabindableinterface.h \
+		D:\Qt\5.15.0\msvc2015_64\include\QtGui\QStandardItemModel \
+		D:\Qt\5.15.0\msvc2015_64\include\QtGui\qstandarditemmodel.h \
+		D:\Qt\5.15.0\msvc2015_64\include\QtCore\qabstractitemmodel.h \
+		D:\Qt\5.15.0\msvc2015_64\include\QtGui\qicon.h \
 		D:\Qt\5.15.0\msvc2015_64\include\QtWidgets\QApplication \
 		D:\Qt\5.15.0\msvc2015_64\include\QtWidgets\qapplication.h \
 		D:\Qt\5.15.0\msvc2015_64\include\QtCore\qcoreapplication.h \
@@ -588,25 +602,14 @@ debug\Widget.obj: ..\MediaPlayer_PU_211\Widget.cpp ..\MediaPlayer_PU_211\Widget.
 		D:\Qt\5.15.0\msvc2015_64\include\QtCore\qmetaobject.h \
 		D:\Qt\5.15.0\msvc2015_64\include\QtMultimedia\qaudio.h \
 		D:\Qt\5.15.0\msvc2015_64\include\QtNetwork\qnetworkconfiguration.h \
-		ui_Widget.h \
-		D:\Qt\5.15.0\msvc2015_64\include\QtGui\QIcon \
+		D:\Qt\5.15.0\msvc2015_64\include\QtMultimedia\QMediaPlaylist \
+		D:\Qt\5.15.0\msvc2015_64\include\QtMultimedia\qmediaplaylist.h \
+		D:\Qt\5.15.0\msvc2015_64\include\QtMultimedia\qmediabindableinterface.h \
+		D:\Qt\5.15.0\msvc2015_64\include\QtGui\QStandardItemModel \
+		D:\Qt\5.15.0\msvc2015_64\include\QtGui\qstandarditemmodel.h \
+		D:\Qt\5.15.0\msvc2015_64\include\QtCore\qabstractitemmodel.h \
 		D:\Qt\5.15.0\msvc2015_64\include\QtGui\qicon.h \
-		D:\Qt\5.15.0\msvc2015_64\include\QtWidgets\QApplication \
-		D:\Qt\5.15.0\msvc2015_64\include\QtWidgets\qapplication.h \
-		D:\Qt\5.15.0\msvc2015_64\include\QtCore\qcoreapplication.h \
-		D:\Qt\5.15.0\msvc2015_64\include\QtCore\qeventloop.h \
-		D:\Qt\5.15.0\msvc2015_64\include\QtWidgets\qdesktopwidget.h \
-		D:\Qt\5.15.0\msvc2015_64\include\QtGui\qguiapplication.h \
-		D:\Qt\5.15.0\msvc2015_64\include\QtGui\qinputmethod.h \
-		D:\Qt\5.15.0\msvc2015_64\include\QtWidgets\QLabel \
-		D:\Qt\5.15.0\msvc2015_64\include\QtWidgets\qlabel.h \
-		D:\Qt\5.15.0\msvc2015_64\include\QtWidgets\qframe.h \
-		D:\Qt\5.15.0\msvc2015_64\include\QtWidgets\QPushButton \
-		D:\Qt\5.15.0\msvc2015_64\include\QtWidgets\qpushbutton.h \
-		D:\Qt\5.15.0\msvc2015_64\include\QtWidgets\qabstractbutton.h \
-		D:\Qt\5.15.0\msvc2015_64\include\QtWidgets\QSlider \
-		D:\Qt\5.15.0\msvc2015_64\include\QtWidgets\qslider.h \
-		D:\Qt\5.15.0\msvc2015_64\include\QtWidgets\qabstractslider.h \
+		ui_Widget.h \
 		D:\Qt\5.15.0\msvc2015_64\include\QtWidgets\QStyle \
 		D:\Qt\5.15.0\msvc2015_64\include\QtWidgets\qstyle.h \
 		D:\Qt\5.15.0\msvc2015_64\include\QtWidgets\QFileDialog \
@@ -614,7 +617,9 @@ debug\Widget.obj: ..\MediaPlayer_PU_211\Widget.cpp ..\MediaPlayer_PU_211\Widget.
 		D:\Qt\5.15.0\msvc2015_64\include\QtCore\qdir.h \
 		D:\Qt\5.15.0\msvc2015_64\include\QtCore\qfileinfo.h \
 		D:\Qt\5.15.0\msvc2015_64\include\QtWidgets\qdialog.h \
-		D:\Qt\5.15.0\msvc2015_64\include\QtCore\QDir
+		D:\Qt\5.15.0\msvc2015_64\include\QtCore\QDir \
+		D:\Qt\5.15.0\msvc2015_64\include\QtCore\QTime \
+		D:\Qt\5.15.0\msvc2015_64\include\QtCore\qdatetime.h
 
 debug\qrc_Icons.obj: debug\qrc_Icons.cpp 
 
