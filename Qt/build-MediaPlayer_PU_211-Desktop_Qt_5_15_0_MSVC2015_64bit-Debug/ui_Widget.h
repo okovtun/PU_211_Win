@@ -38,14 +38,16 @@ public:
     QPushButton *pushButtonStop;
     QPushButton *pushButtonMute;
     QTableView *tablePlaylist;
+    QPushButton *pushButtonRem;
+    QPushButton *pushButtonClr;
 
     void setupUi(QWidget *Widget)
     {
         if (Widget->objectName().isEmpty())
             Widget->setObjectName(QString::fromUtf8("Widget"));
-        Widget->resize(676, 408);
-        Widget->setMinimumSize(QSize(676, 408));
-        Widget->setMaximumSize(QSize(676, 408));
+        Widget->resize(676, 428);
+        Widget->setMinimumSize(QSize(676, 428));
+        Widget->setMaximumSize(QSize(676, 428));
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/ICO/ICO/sound.ico"), QSize(), QIcon::Normal, QIcon::Off);
         Widget->setWindowIcon(icon);
@@ -54,19 +56,19 @@ public:
         labelComposition->setGeometry(QRect(30, 30, 511, 16));
         pushButtonAdd = new QPushButton(Widget);
         pushButtonAdd->setObjectName(QString::fromUtf8("pushButtonAdd"));
-        pushButtonAdd->setGeometry(QRect(30, 70, 51, 21));
+        pushButtonAdd->setGeometry(QRect(30, 400, 51, 21));
         pushButtonPrev = new QPushButton(Widget);
         pushButtonPrev->setObjectName(QString::fromUtf8("pushButtonPrev"));
-        pushButtonPrev->setGeometry(QRect(90, 70, 51, 21));
+        pushButtonPrev->setGeometry(QRect(30, 70, 51, 21));
         pushButtonPlay = new QPushButton(Widget);
         pushButtonPlay->setObjectName(QString::fromUtf8("pushButtonPlay"));
-        pushButtonPlay->setGeometry(QRect(150, 70, 51, 21));
+        pushButtonPlay->setGeometry(QRect(90, 70, 51, 21));
         pushButtonPause = new QPushButton(Widget);
         pushButtonPause->setObjectName(QString::fromUtf8("pushButtonPause"));
-        pushButtonPause->setGeometry(QRect(210, 70, 51, 21));
+        pushButtonPause->setGeometry(QRect(150, 70, 51, 21));
         pushButtonNext = new QPushButton(Widget);
         pushButtonNext->setObjectName(QString::fromUtf8("pushButtonNext"));
-        pushButtonNext->setGeometry(QRect(330, 70, 51, 21));
+        pushButtonNext->setGeometry(QRect(270, 70, 51, 21));
         horizontalSliderVolume = new QSlider(Widget);
         horizontalSliderVolume->setObjectName(QString::fromUtf8("horizontalSliderVolume"));
         horizontalSliderVolume->setGeometry(QRect(449, 70, 201, 20));
@@ -86,13 +88,19 @@ public:
         labelDuration->setGeometry(QRect(560, 110, 91, 16));
         pushButtonStop = new QPushButton(Widget);
         pushButtonStop->setObjectName(QString::fromUtf8("pushButtonStop"));
-        pushButtonStop->setGeometry(QRect(270, 70, 51, 21));
+        pushButtonStop->setGeometry(QRect(210, 70, 51, 21));
         pushButtonMute = new QPushButton(Widget);
         pushButtonMute->setObjectName(QString::fromUtf8("pushButtonMute"));
         pushButtonMute->setGeometry(QRect(390, 70, 51, 21));
         tablePlaylist = new QTableView(Widget);
         tablePlaylist->setObjectName(QString::fromUtf8("tablePlaylist"));
         tablePlaylist->setGeometry(QRect(30, 160, 621, 231));
+        pushButtonRem = new QPushButton(Widget);
+        pushButtonRem->setObjectName(QString::fromUtf8("pushButtonRem"));
+        pushButtonRem->setGeometry(QRect(90, 400, 51, 21));
+        pushButtonClr = new QPushButton(Widget);
+        pushButtonClr->setObjectName(QString::fromUtf8("pushButtonClr"));
+        pushButtonClr->setGeometry(QRect(150, 400, 51, 21));
 
         retranslateUi(Widget);
 
@@ -103,7 +111,7 @@ public:
     {
         Widget->setWindowTitle(QCoreApplication::translate("Widget", "Media Player PU_211", nullptr));
         labelComposition->setText(QCoreApplication::translate("Widget", "Composition:", nullptr));
-        pushButtonAdd->setText(QCoreApplication::translate("Widget", "Add", nullptr));
+        pushButtonAdd->setText(QCoreApplication::translate("Widget", "ADD", nullptr));
         pushButtonPrev->setText(QString());
         pushButtonPlay->setText(QString());
         pushButtonPause->setText(QString());
@@ -113,6 +121,8 @@ public:
         labelDuration->setText(QCoreApplication::translate("Widget", "Duration:", nullptr));
         pushButtonStop->setText(QString());
         pushButtonMute->setText(QString());
+        pushButtonRem->setText(QCoreApplication::translate("Widget", "REM", nullptr));
+        pushButtonClr->setText(QCoreApplication::translate("Widget", "CLR", nullptr));
     } // retranslateUi
 
 };
