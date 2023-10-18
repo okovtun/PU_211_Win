@@ -35,21 +35,28 @@ Widget::Widget(QWidget *parent)
 
 	/////////////////////			Playlist			/////////////////////
 	m_playlist_model = new QStandardItemModel(this);
-	ui->tablePlaylist->setModel(m_playlist_model);
-	m_playlist_model->setHorizontalHeaderLabels(QStringList() << tr("Audio track") << tr("File path"));
-	ui->tablePlaylist->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	ui->tablePlaylist->setModel(m_playlist_model);		//связываем таблицу с моделью
+	m_playlist_model->setHorizontalHeaderLabels(QStringList() << tr("Audio track") << tr("File path"));	//подписываем заголовки таблицы
+	ui->tablePlaylist->hideColumn(1);	//скрываем столбец с адресом файла
+	ui->tablePlaylist->horizontalHeader()->setStretchLastSection(true);		//расягиваем отображаемый столбец на всю ширину окна
+	ui->tablePlaylist->setEditTriggers(QAbstractItemView::NoEditTriggers);	//запрещаем редактирование ячеек таблицы
 
 	m_playlist = new QMediaPlaylist(m_player);
 	m_player->setPlaylist(m_playlist);
 
 	connect(ui->tablePlaylist, &QTableView::doubleClicked,
-			[this](const QModelIndex& index){ m_playlist->setCurrentIndex(index.row()); });
+			[this](const QModelIndex& index){ m_playlist->setCurrentIndex(index.row()); m_player->play(); });
 	connect(m_playlist, &QMediaPlaylist::currentIndexChanged,
 			[this](int index)
 	{
 		ui->labelComposition->setText(m_playlist_model->data(m_playlist_model->index(index, 0)).toString());
+		ui->tablePlaylist->selectRow(index);
 	}
 			);
+
+	/////////////////////////////////////////////////////////////////////////
+
+	/////////////////////		   LoadPlaylist			/////////////////////
 	m_playlist->load(QUrl::fromLocalFile("D:/Users/Clayman/Source/Repos/PU_211_Win/Qt/build-MediaPlayer_PU_211-Desktop_Qt_5_15_0_MSVC2015_64bit-Debug/debug/playlist.m3u"), "m3u");
 	for(int i = 0; i < m_playlist->mediaCount(); i++)
 	{
@@ -159,4 +166,14 @@ void Widget::on_pushButtonMute_clicked()
 	m_player->setMuted(muted);
 	ui->pushButtonMute->setIcon
 			(style()->standardIcon(muted ? QStyle::SP_MediaVolumeMuted : QStyle::SP_MediaVolume));
+}
+
+void Widget::on_pushButtonNext_clicked()
+{
+	m_playlist->next();
+}
+
+void Widget::on_pushButtonPrev_clicked()
+{
+	m_playlist->previous();
 }

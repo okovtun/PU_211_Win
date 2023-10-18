@@ -34,6 +34,10 @@ private slots:
 
 	void on_pushButtonMute_clicked();
 
+	void on_pushButtonNext_clicked();
+
+	void on_pushButtonPrev_clicked();
+
 private:
 	Ui::Widget *ui;
 
