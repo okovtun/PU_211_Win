@@ -45,6 +45,8 @@ private slots:
 
 	void on_pushButtonRem_clicked();
 
+	void on_horizontalSliderProgress_sliderMoved(int position);
+
 private:
 	Ui::Widget *ui;
 

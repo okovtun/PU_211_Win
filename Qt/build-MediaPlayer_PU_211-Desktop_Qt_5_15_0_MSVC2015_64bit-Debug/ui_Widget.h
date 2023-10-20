@@ -75,7 +75,24 @@ public:
         horizontalSliderVolume->setOrientation(Qt::Horizontal);
         horizontalSliderProgress = new QSlider(Widget);
         horizontalSliderProgress->setObjectName(QString::fromUtf8("horizontalSliderProgress"));
-        horizontalSliderProgress->setGeometry(QRect(30, 130, 621, 16));
+        horizontalSliderProgress->setGeometry(QRect(30, 125, 621, 41));
+        horizontalSliderProgress->setStyleSheet(QString::fromUtf8("QSlider::groove:horizontal\n"
+"{\n"
+"	height:				10px;\n"
+"	width:				620px;\n"
+"	background:	red;\n"
+"	border-radius:5px;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal\n"
+"{\n"
+"	visible:				true;\n"
+"	background:	rgb(111, 55, 111);\n"
+"	width:				20px;\n"
+"	height:				10px;\n"
+"	margin:			-7px -7px;\n"
+"	border-radius:10px;\n"
+"}"));
         horizontalSliderProgress->setOrientation(Qt::Horizontal);
         labelVolume = new QLabel(Widget);
         labelVolume->setObjectName(QString::fromUtf8("labelVolume"));
@@ -89,9 +106,23 @@ public:
         pushButtonStop = new QPushButton(Widget);
         pushButtonStop->setObjectName(QString::fromUtf8("pushButtonStop"));
         pushButtonStop->setGeometry(QRect(210, 70, 51, 21));
+        pushButtonStop->setStyleSheet(QString::fromUtf8("QPushButton\n"
+"{\n"
+"	border:					none;\n"
+"	border-radius:			5px;\n"
+"	background-color:	rgb(222,222,222);\n"
+"	color:						rgb(11,11,11);\n"
+"}"));
         pushButtonMute = new QPushButton(Widget);
         pushButtonMute->setObjectName(QString::fromUtf8("pushButtonMute"));
         pushButtonMute->setGeometry(QRect(390, 70, 51, 21));
+        pushButtonMute->setStyleSheet(QString::fromUtf8("QPushButton\n"
+"{\n"
+"	border:					none;\n"
+"	border-radius:			5px;\n"
+"	background-color:	rgb(222,222,222);\n"
+"	color:						rgb(11,11,11);\n"
+"}"));
         tablePlaylist = new QTableView(Widget);
         tablePlaylist->setObjectName(QString::fromUtf8("tablePlaylist"));
         tablePlaylist->setGeometry(QRect(30, 160, 621, 231));
